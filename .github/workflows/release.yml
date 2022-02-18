@@ -1,4 +1,5 @@
 # Heavily inspired (i.e. copy/paste) from https://gist.github.com/NickNaso/0d478f1481686d5bcc868cac06620a60
+# Heavily inspired (i.e. copy/paste) from https://github.com/jkalias/functional_vector/blob/main/.github/workflows/cmake.yml
 name: CMake Build Matrix
 
 # Controls when the action will run. Triggers the workflow on push
@@ -79,12 +80,14 @@ jobs:
         run: |
           echo github.event.action: ${{ github.event.action }}
           echo github.event_name: ${{ github.event_name }}
+
       - name: Install dependencies on windows
         if: startsWith(matrix.config.os, 'windows')
         run: |
           choco install ninja cmake
           ninja --version
           cmake --version
+
       - name: Install dependencies on ubuntu
         if: startsWith(matrix.config.name, 'Ubuntu Latest GCC')
         run: |
@@ -93,6 +96,7 @@ jobs:
           ninja --version
           cmake --version
           gcc --version
+
       - name: Install dependencies on macos
         if: startsWith(matrix.config.os, 'macos')
         run: |
@@ -105,14 +109,24 @@ jobs:
         if: contains(matrix.config.name, 'C++11')
         run: |
           mkdir build
-          make
+          cmake \
+            -S . \
+            -B build \
+            -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} \
+            -G "${{ matrix.config.generators }}"
       
       - name: Configure C++17
         shell: bash
         if: contains(matrix.config.name, 'C++17')
         run: |
           mkdir build
-          make
+          cmake \
+            -S . \
+            -B build \
+            -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} \
+            -DCMAKE_CXX_STANDARD=17 \
+            -G "${{ matrix.config.generators }}"
+
       - name: Build
         shell: bash
         run: cmake --build build --config ${{ matrix.config.build_type }}
@@ -146,3 +160,26 @@ jobs:
           $cmd
           status=$?
           [ $status -eq 0 ] && exit 0 || exit 1
+
+      - name: Pack
+        shell: bash
+        working-directory: instdir
+        run: |
+          ls -laR
+          ${{ matrix.config.archiver }} ../${{ matrix.config.artifact }} .
+      - name: Upload
+        uses: actions/upload-artifact@v1
+        with:
+          path: ./${{ matrix.config.artifact }}
+          name: ${{ matrix.config.artifact }}
+
+      - name: Upload release asset
+        if: github.event_name == 'release' && (github.event.action == 'published' || github.event.action == 'created')
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./${{ matrix.config.artifact }}
+          asset_name: ${{ matrix.config.artifact }}.zip
+          asset_content_type: application/zip
