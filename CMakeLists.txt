@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(srt-to-vtt VERSION 1.3.0)
+project(srt-vtt VERSION 1.3.0)
 
 # GoogleTest requires at least C++11
 if(NOT "${CMAKE_CXX_STANDARD}")
