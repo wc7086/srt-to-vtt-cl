@@ -32,6 +32,4 @@ set_target_properties(${LIBNAME} PROPERTIES
 	OUTPUT_NAME ${LIBNAME}
 	FOLDER "lib")
 
-# Adds logic to install the library to the destination directory
-install (TARGETS ${LIBNAME}
-		 RUNTIME DESTINATION ${PROJECT_BINARY_DIR}/bin)
+add_executable(${PROJECT_NAME} ${SOURCES})
