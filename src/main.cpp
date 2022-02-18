@@ -14,7 +14,7 @@
 #include <limits.h>
 #include <stdexcept>
 #include <string>
-#include <tclap/CmdLine.h>
+#include <CmdLine.h>
 
 using namespace std;
 
