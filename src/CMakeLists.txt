@@ -6,7 +6,9 @@ include_directories ("../include")
 # Collect files without having to explicitly list each header and source file
 file (GLOB HEADERS
 	  "./*.h"
-	  "./*.hpp")
+	  "./*.hpp"
+	  "../deps/tclap/*.h"
+	  "../deps/windows/*.h")
 
 file (GLOB SOURCES
       "*.cpp"
