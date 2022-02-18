@@ -50,12 +50,13 @@ jobs:
             cc: "gcc"
             cxx: "g++"
             generators: "Ninja"
+
           - name: "macOS Latest Clang (C++11)"
             os: macos-latest
             build_type: "Debug"
             cc: "clang"
             cxx: "clang++"
-            generators: "Xcode
+            generators: "Xcode"
 
           - name: "macOS Latest Clang (C++17)"
             os: macos-latest
