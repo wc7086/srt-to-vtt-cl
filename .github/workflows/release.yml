@@ -140,7 +140,6 @@ jobs:
         if: startsWith(matrix.config.os, 'windows')
         shell: bash
         run: |
-          ls -laR
           status=$?
           cmd="bash ./test/test.sh ./build/bin/Release/srt-vtt.exe"
           $cmd
@@ -151,7 +150,6 @@ jobs:
         if: startsWith(matrix.config.os, 'macos')
         shell: bash
         run: |
-          ls -laR
           status=$?
           cmd="bash ./test/test.sh ./build/bin/Release/srt-vtt"
           $cmd
@@ -174,7 +172,9 @@ jobs:
         working-directory: build/bin
         run: |
           ls -laR
-          ${{ matrix.config.archiver }} ../${{ matrix.config.artifact }} . ../README.md
+          file=./*
+          if [[ ${{ matrix.config.os }} -eq 'ubuntu-latest' ]]; than file=./Release/*
+          ${{ matrix.config.archiver }} ../${{ matrix.config.artifact }} $file ../../README.md fi
       - name: Upload
         uses: actions/upload-artifact@v1
         with:
