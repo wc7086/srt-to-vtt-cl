@@ -148,7 +148,9 @@ jobs:
         if: startsWith(matrix.config.name, 'Ubuntu Latest GCC')
         shell: bash
         run: |
-          ls -a bin/
+          ls -a build/
+          echo 'aaaaaaaaaaaaaaaaaaaa'
+          ls -a build/bin
           status=$?
           cmd="bash ./test/test.sh bin/srt-vtt"
           $cmd
