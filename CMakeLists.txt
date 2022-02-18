@@ -44,4 +44,3 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # Include the testing subdirectory
 add_subdirectory(src)
-add_subdirectory(tests)
