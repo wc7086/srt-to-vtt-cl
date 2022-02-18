@@ -129,7 +129,7 @@ jobs:
         shell: bash
         run: |
           status=$?
-          cmd="bash ./test/test.sh bin/srt-vtt.exe"
+          cmd="bash ./test/test.sh build/bin.exe"
           $cmd
           status=$?
           [ $status -eq 0 ] && exit 0 || exit 1
@@ -139,7 +139,7 @@ jobs:
         shell: bash
         run: |
           status=$?
-          cmd="bash ./test/test.sh bin/srt-vtt"
+          cmd="bash ./test/test.sh build/bin"
           $cmd
           status=$?
           [ $status -eq 0 ] && exit 0 || exit 1
@@ -148,12 +148,8 @@ jobs:
         if: startsWith(matrix.config.name, 'Ubuntu Latest GCC')
         shell: bash
         run: |
-          ls -a build/
-          echo 'aaaaaaaaaaaaaaaaaaaa'
-          echo 'test' > build/bin/
-          ls -a build/bin/
           status=$?
-          cmd="bash ./test/test.sh bin/srt-vtt"
+          cmd="bash ./test/test.sh build/bin"
           $cmd
           status=$?
           [ $status -eq 0 ] && exit 0 || exit 1
