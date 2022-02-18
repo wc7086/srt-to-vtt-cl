@@ -161,7 +161,7 @@ jobs:
         shell: bash
         run: |
           status=$?
-          cmd="bash ./test/test.sh ./build/bin/Release/srt-vtt"
+          cmd="bash ./test/test.sh ./build/bin/srt-vtt"
           $cmd
           status=$?
           [ $status -eq 0 ] && exit 0 || exit 1
