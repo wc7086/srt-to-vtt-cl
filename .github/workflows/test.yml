@@ -129,7 +129,7 @@ jobs:
         shell: bash
         run: |
           status=$?
-          cmd="bash ./test/test.sh"
+          cmd="bash ./test/test.sh ./${{ matrix.config.artifact }}.exe"
           $cmd
           status=$?
           [ $status -eq 0 ] && exit 0 || exit 1
@@ -139,7 +139,7 @@ jobs:
         shell: bash
         run: |
           status=$?
-          cmd="bash ./test/test.sh"
+          cmd="bash ./test/test.sh ./${{ matrix.config.artifact }}"
           $cmd
           status=$?
           [ $status -eq 0 ] && exit 0 || exit 1
@@ -149,7 +149,7 @@ jobs:
         shell: bash
         run: |
           status=$?
-          cmd="bash ./test/test.sh"
+          cmd="bash ./test/test.sh ./${{ matrix.config.artifact }}"
           $cmd
           status=$?
           [ $status -eq 0 ] && exit 0 || exit 1
