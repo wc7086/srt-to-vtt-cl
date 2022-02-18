@@ -1,7 +1,7 @@
 set (LIBNAME functional_vector)
 
 # Properties->C/C++->General->Additional Include Directories
-include_directories ("../include")
+include_directories ("../deps")
 
 # Collect files without having to explicitly list each header and source file
 file (GLOB HEADERS
