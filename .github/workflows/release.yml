@@ -105,21 +105,14 @@ jobs:
         if: contains(matrix.config.name, 'C++11')
         run: |
           mkdir build
-          cmake \
-            -S . \
-            -B build \
-            -G "${{ matrix.config.generators }}"
+          make
       
       - name: Configure C++17
         shell: bash
         if: contains(matrix.config.name, 'C++17')
         run: |
           mkdir build
-          cmake \
-            -S . \
-            -B build \
-            -DCMAKE_CXX_STANDARD=17 \
-            -G "${{ matrix.config.generators }}"
+          make
       - name: Build
         shell: bash
         run: cmake --build build --config ${{ matrix.config.build_type }}
