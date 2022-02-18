@@ -172,8 +172,8 @@ jobs:
         run: |
           ls -laR
           file=./*
-          if [[ ${{ matrix.config.os }} -eq 'ubuntu-latest' ]]; than file=./Release/*
-          ${{ matrix.config.archiver }} ../${{ matrix.config.artifact }} $file ../../README.md fi
+          if [[ ${{ matrix.config.os }} -eq 'ubuntu-latest' ]]; than file=./Release/* fi
+          ${{ matrix.config.archiver }} ../${{ matrix.config.artifact }} $file ../../README.md
       - name: Upload
         uses: actions/upload-artifact@v1
         with:
