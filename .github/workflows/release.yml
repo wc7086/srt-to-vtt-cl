@@ -160,7 +160,6 @@ jobs:
         if: startsWith(matrix.config.name, 'Ubuntu Latest GCC')
         shell: bash
         run: |
-          ls -laR
           status=$?
           cmd="bash ./test/test.sh ./build/bin/Release/srt-vtt"
           $cmd
