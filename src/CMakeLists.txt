@@ -32,4 +32,5 @@ set_target_properties(${LIBNAME} PROPERTIES
 	OUTPUT_NAME ${LIBNAME}
 	FOLDER "lib")
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 add_executable(${PROJECT_NAME} ${SOURCES})
