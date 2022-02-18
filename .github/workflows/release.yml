@@ -23,7 +23,9 @@ jobs:
         config: 
           - name: "Windows Latest MSVC (C++11)"
             os: windows-latest
-            build_type: "Debug"
+            archiver: "7z a"
+            artifact: "windows-msvc-c++11.7z"
+            build_type: "Release"
             cc: "cl"
             cxx: "cl"
             environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
@@ -31,7 +33,9 @@ jobs:
 
           - name: "Windows Latest MSVC (C++17)"
             os: windows-latest
-            build_type: "Debug"
+            archiver: "7z a"
+            artifact: "windows-msvc-c++17.7z"
+            build_type: "Release"
             cc: "cl"
             cxx: "cl"
             environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
@@ -39,28 +43,36 @@ jobs:
 
           - name: "Ubuntu Latest GCC (C++11)"
             os: ubuntu-latest
-            build_type: "Debug"
+            archiver: "7z a"
+            artifact: "ubuntu-gcc-c++11.7z"
+            build_type: "Release"
             cc: "gcc"
             cxx: "g++"
             generators: "Ninja"
 
           - name: "Ubuntu Latest GCC (C++17)"
             os: ubuntu-latest
-            build_type: "Debug"
+            archiver: "7z a"
+            artifact: "ubuntu-gcc-c++17.7z"
+            build_type: "Release"
             cc: "gcc"
             cxx: "g++"
             generators: "Ninja"
 
           - name: "macOS Latest Clang (C++11)"
             os: macos-latest
-            build_type: "Debug"
+            archiver: "7z a"
+            artifact: "macOS-clang-c++11.7z"
+            build_type: "Release"
             cc: "clang"
             cxx: "clang++"
             generators: "Xcode"
 
           - name: "macOS Latest Clang (C++17)"
             os: macos-latest
-            build_type: "Debug"
+            archiver: "7z a"
+            artifact: "macOS-clang-c++17.7z"
+            build_type: "Release"
             cc: "clang"
             cxx: "clang++"
             generators: "Xcode"
@@ -93,7 +105,7 @@ jobs:
       - name: Install dependencies on macos
         if: startsWith(matrix.config.os, 'macos')
         run: |
-          brew install cmake ninja
+          brew install cmake ninja p7zip
           ninja --version
           cmake --version
           
@@ -128,6 +140,7 @@ jobs:
         if: startsWith(matrix.config.os, 'windows')
         shell: bash
         run: |
+          ls -laR
           status=$?
           cmd="bash ./test/test.sh build/bin.exe"
           $cmd
@@ -139,7 +152,7 @@ jobs:
         shell: bash
         run: |
           status=$?
-          cmd="bash ./test/test.sh build/bin"
+          cmd="bash ./test/test.sh build/bin/srt-to-vtt"
           $cmd
           status=$?
           [ $status -eq 0 ] && exit 0 || exit 1
@@ -148,21 +161,18 @@ jobs:
         if: startsWith(matrix.config.name, 'Ubuntu Latest GCC')
         shell: bash
         run: |
-          ls -laR build
-          echo 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-          ls -laR instdir
           status=$?
-          cmd="bash ./test/test.sh build/bin"
+          cmd="bash ./test/test.sh build/bin/srt-to-vtt"
           $cmd
           status=$?
           [ $status -eq 0 ] && exit 0 || exit 1
 
       - name: Pack
         shell: bash
-        working-directory: instdir
+        working-directory: build/bin
         run: |
           ls -laR
-          ${{ matrix.config.archiver }} ../${{ matrix.config.artifact }} .
+          ${{ matrix.config.archiver }} ../${{ matrix.config.artifact }} . ../README.md
       - name: Upload
         uses: actions/upload-artifact@v1
         with:
