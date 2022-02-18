@@ -21,56 +21,49 @@ jobs:
       fail-fast: false
       matrix:
         config: 
-        - {
-            name: "Windows Latest MSVC (C++11)",
-            os: windows-latest,
-            build_type: "Debug",
-            cc: "cl",
-            cxx: "cl",
-            environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat",
+          - name: "Windows Latest MSVC (C++11)"
+            os: windows-latest
+            build_type: "Debug"
+            cc: "cl"
+            cxx: "cl"
+            environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
             generators: "Visual Studio 16 2019"
-          }
-        - {
-            name: "Windows Latest MSVC (C++17)",
-            os: windows-latest,
-            build_type: "Debug",
-            cc: "cl",
-            cxx: "cl",
-            environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat",
+
+          - name: "Windows Latest MSVC (C++17)"
+            os: windows-latest
+            build_type: "Debug"
+            cc: "cl"
+            cxx: "cl"
+            environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
             generators: "Visual Studio 16 2019"
-          }
-        - {
-            name: "Ubuntu Latest GCC (C++11)",
-            os: ubuntu-latest,
-            build_type: "Debug",
-            cc: "gcc",
-            cxx: "g++",
+
+          - name: "Ubuntu Latest GCC (C++11)"
+            os: ubuntu-latest
+            build_type: "Debug"
+            cc: "gcc"
+            cxx: "g++"
             generators: "Ninja"
-          }
-        - {
-            name: "Ubuntu Latest GCC (C++17)",
-            os: ubuntu-latest,
-            build_type: "Debug",
-            cc: "gcc",
-            cxx: "g++",
+
+          - name: "Ubuntu Latest GCC (C++17)"
+            os: ubuntu-latest
+            build_type: "Debug"
+            cc: "gcc"
+            cxx: "g++"
             generators: "Ninja"
-          }
-        - {
-            name: "macOS Latest Clang (C++11)",
-            os: macos-latest,
-            build_type: "Debug",
-            cc: "clang",
-            cxx: "clang++",
+
+          - name: "macOS Latest Clang (C++11)"
+            os: macos-latest
+            build_type: "Debug"
+            cc: "clang"
+            cxx: "clang++"
+            generators: "Xcode
+
+          - name: "macOS Latest Clang (C++17)"
+            os: macos-latest
+            build_type: "Debug"
+            cc: "clang"
+            cxx: "clang++"
             generators: "Xcode"
-          }
-        - {
-            name: "macOS Latest Clang (C++17)",
-            os: macos-latest,
-            build_type: "Debug",
-            cc: "clang",
-            cxx: "clang++",
-            generators: "Xcode"
-          }
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
