@@ -151,6 +151,7 @@ jobs:
         if: startsWith(matrix.config.os, 'macos')
         shell: bash
         run: |
+          ls -laR
           status=$?
           cmd="bash ./test/test.sh build/bin/srt-to-vtt"
           $cmd
@@ -161,11 +162,8 @@ jobs:
         if: startsWith(matrix.config.name, 'Ubuntu Latest GCC')
         shell: bash
         run: |
-          status=$?
           cmd="bash ./test/test.sh build/bin/srt-to-vtt"
           $cmd
-          status=$?
-          [ $status -eq 0 ] && exit 0 || exit 1
 
       - name: Pack
         shell: bash
